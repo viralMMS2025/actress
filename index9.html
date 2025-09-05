@@ -1,0 +1,215 @@
+<!-- ===========================
+     একবারি CSS (head বা আলাদা .css ফাইলে রাখার মত)
+     =========================== -->
+<style>
+  :root{
+    --card-width: 320px;   /* প্রতিটি কার্ডের ডিফল্ট চওড়া */
+    --card-height: 180px;  /* প্রতিটির উচ্চতা */
+    --gap: 16px;           /* কার্ডগুলোর মধ্যে ফাঁক */
+    --play-size: 60px;
+  }
+
+  /* গ্রিড কন্টেইনার */
+  .video-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+    gap: var(--gap);
+    justify-items: center;
+    padding: 16px;
+  }
+
+  /* কার্ড স্টাইল — বারবার ব্যবহারযোগ্য ক্লাস */
+  .video-card{
+    position: relative;
+    width: var(--card-width);
+    height: var(--card-height);
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    background: #000;
+    display: block;
+    outline: none; /* focus style আলাদাভাবে দেবো */
+  }
+
+  .video-card:focus{
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.18);
+  }
+
+  .video-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+  }
+
+  .video-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ছবির কভার মোড */
+    display: block;
+  }
+
+  /* overlay এবং প্লে বাটন */
+  .video-overlay{
+    position: absolute;
+    inset: 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition: background 0.18s ease;
+    pointer-events: none; /* কেবল parent ক্লিক নেবে */
+  }
+
+  /* হাফ-গ্রেড প্লে গ্লো (hover এ দেখাবে) */
+  .video-card:hover .video-overlay{
+    background: rgba(0,0,0,0.08);
+  }
+
+  .play-btn{
+    pointer-events: none; /* ক্লিক parent দ্বারা নেব */
+    width: var(--play-size);
+    height: var(--play-size);
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 28px;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transform: scale(1);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .video-card:hover .play-btn{
+    transform: scale(1.12);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  }
+
+  /* ছোট স্ক্রীনে কার্ড ছোট দেখাতে চাইলে */
+  @media (max-width: 640px){
+    :root{ --card-width: calc(50vw - 24px); --card-height: 140px; --play-size: 50px; }
+  }
+  @media (max-width: 420px){
+    :root{ --card-width: calc(100vw - 32px); --card-height: 160px; --play-size: 56px; }
+  }
+
+  /* Optional: একটি টিল্ট/ট্যাগ নিচে ছোট লেবেল (যদি দরকার) */
+  .video-label{
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: 13px;
+    pointer-events: none;
+  }
+</style>
+
+<!-- ===========================
+     HTML: গ্রিড + ৯টা কার্ড (প্রতিটির data-link & img src বদলান)
+     =========================== -->
+<div class="video-grid">
+  <!-- ১ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5"
+       aria-label="Open video 1">
+    <img src="https://i.imgur.com/QHdkmNk.jpeg" alt="Video thumbnail 1">
+    <div class="video-overlay">
+      <div class="play-btn">&#9658;</div>
+    </div>
+    <div class="video-label">ভিডিও ১</div>
+  </div>
+
+  <!-- ২ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 2">
+    <img src="https://i.imgur.com/jta1Sxm.jpeg" alt="Video thumbnail 2">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ২</div>
+  </div>
+
+  <!-- ৩ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 3">
+    <img src="https://i.imgur.com/wmGn4OW.jpeg" alt="Video thumbnail 3">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ৩</div>
+  </div>
+
+  <!-- ৪ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 4">
+    <img src="https://i.imgur.com/k4UbIIc.jpeg" alt="Video thumbnail 4">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ৪</div>
+  </div>
+
+  <!-- ৫ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 5">
+    <img src="https://i.imgur.com/NdsOGCg.jpeg" alt="Video thumbnail 5">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ৫</div>
+  </div>
+
+  <!-- ৬ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 6">
+    <img src="https://i.imgur.com/igzkG8F.jpeg" alt="Video thumbnail 6">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ৬</div>
+  </div>
+
+  <!-- ৭ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 7">
+    <img src="https://i.imgur.com/crVLaiq.jpeg" alt="Video thumbnail 7">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ৭</div>
+  </div>
+
+  <!-- ৮ -->
+  <div class="video-card" role="Button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 8">
+    <img src="https://i.imgur.com/2zgSBxK.jpeg" alt="Video thumbnail 8">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ৮</div>
+  </div>
+
+  <!-- ৯ -->
+  <div class="video-card" role="button" tabindex="0"
+       data-link="https://awarenessprovisions.com/wif1rbd8?key=cf6f400ae8778788010b292cf9df11e5" aria-label="Open video 9">
+    <img src="https://i.imgur.com/UQGszkc.jpeg" alt="Video thumbnail 9">
+    <div class="video-overlay"><div class="play-btn">&#9658;</div></div>
+    <div class="video-label">ভিডিও ৯</div>
+  </div>
+</div>
+
+<!-- ===========================
+     JS: প্রতিটি .video-card ক্লিক/Enter কী পেয়ে নতুন ট্যাবে লিংক খুলবে
+     =========================== -->
+<script>
+  (function(){
+    const cards = document.querySelectorAll('.video-card');
+
+    function openCardLink(card){
+      const url = card.getAttribute('data-link');
+      if(!url) return;
+      window.open(url, '_blank');
+    }
+
+    cards.forEach(card=>{
+      card.addEventListener('click', ()=> openCardLink(card));
+      card.addEventListener('keydown', (e)=>{
+        // Enter বা Space বোতামে ওপেন হবে
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openCardLink(card);
+        }
+      });
+    });
+  })();
+</script>
